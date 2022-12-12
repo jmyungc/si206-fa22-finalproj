@@ -4,7 +4,7 @@ import re
 import time
 
 import stocks_api
-# import news_api
+import news_scrape
 import covid_api
 
 def create_database(db_name):
@@ -42,11 +42,19 @@ def covid_table(cur, conn):
         time.sleep(15)
     return
 
-# def news_table(cur,conn):
-#     for i in range(15):
-#         news_api.main(cur, conn)
-#         time.sleep(35)
-#     return("News table created")
+def news_table(cur,conn):
+    for i in range(15):
+        news_scrape.main(cur, conn)
+        cur.execute('SELECT COUNT (*) FROM news')
+        row_count = cur.fetchone()
+
+        if (row_count[0] == 729 or row_count[0] == None):
+            print("News table complete")
+            break
+
+        time.sleep(35)
+    
+    return("News table created")
 
 def join_tables(cur,conn):
     pass
@@ -65,7 +73,7 @@ def main():
 
     join_tables(cur,conn)
 
-    # news_table(cur, conn)
+    news_table(cur, conn)
 
 if __name__ == "__main__":
     main()
