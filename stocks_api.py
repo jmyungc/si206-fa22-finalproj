@@ -170,7 +170,7 @@ def main(cur, conn):
     date_count = cur.fetchone()
 
     if (date_count[0] == 105):
-        print("Date table completed")
+        print("Date table complete")
 
     if (stock_count[0] < 105 and date_count[0] == 105):
         print("Adding first stock")
@@ -188,7 +188,7 @@ def main(cur, conn):
         add_third_stock(cur, conn, mrna_stock_list)
 
     elif (stock_count[0] == 315):
-        print("Stock table completed")
+        print("Stock table complete")
 
 if __name__ == "__main__":
     main()

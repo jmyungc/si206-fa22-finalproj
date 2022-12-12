@@ -5,7 +5,7 @@ import time
 
 import stocks_api
 # import news_api
-# import covid_api
+import covid_api
 
 def create_database(db_name):
     path = os.path.dirname(os.path.abspath(__file__))
@@ -16,16 +16,31 @@ def create_database(db_name):
     return cur, conn
 
 def stocks_tables(cur, conn):
-    for i in range(19):
+    for i in range(11):
         stocks_api.main(cur, conn)
-        time.sleep(35)
-    return ("Stocks tables created")
 
-# def covid_table(cur, conn):
-#     for i in range(15):
-#         covid_api.main(cur, conn)
-#         time.sleep(35)
-#     return("Covid table created")
+        cur.execute('SELECT COUNT (*) FROM Stocks')
+        row_count = cur.fetchone()
+
+        if (row_count[0] == 315 or row_count[0] == None):
+            print("Stocks table complete")
+            break
+
+        time.sleep(20)
+    return
+
+def covid_table(cur, conn):
+    for i in range(5):
+        covid_api.main(cur, conn)
+        cur.execute('SELECT COUNT (*) FROM Covid')
+        
+        row_count = cur.fetchone()
+
+        if (row_count[0] == 416 or row_count[0] == None):
+            print("Covid table complete")
+            break
+        time.sleep(15)
+    return
 
 # def news_table(cur,conn):
 #     for i in range(15):
@@ -44,8 +59,11 @@ def stocks_tables(cur, conn):
 def main():
     cur, conn = create_database('final.db')
 
+    covid_table(cur, conn)
+    
     stocks_tables(cur, conn)
-    # covid_table(cur, conn)
+   
+
     # news_table(cur, conn)
 
 if __name__ == "__main__":
