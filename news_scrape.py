@@ -106,27 +106,8 @@ def get_news_data(rss_url):
                 news_dict[dt] = item.title
                 news_list.append([str(dt),item.title])
                 i+=1
-                # print(i, d.date(), item.title)
-                #print(item.title)
-                #print(item.publish_date)
-                # dd = datetime.strptime(item.publish_date,'%a, %d %b %Y').date()
-                # dt = parser.parse(item.publish_date)
-                #print(dt)
     return news_list
 
-# def week_ids(news_data):
-#     dates_list = []
-#     tup_list = []
-
-#     for line in news_data:
-#         date = (re.findall('(202[01]-\d{2}-\d{2})', str(line)))
-#         dates_list.append(date)
-    
-#     for i in range(len(dates_list)):
-#         week = 0
-#         new_tup = (, )
-
-    #  # 
 
 def insert_keyword_count(cur, conn, list):
     keywords = ['vaccine', 'vaccination' 'johnson & johnson', 'janssen', 'pfizer', 'corona','covid-19', 'covid',
