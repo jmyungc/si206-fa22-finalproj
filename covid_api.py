@@ -4,12 +4,6 @@ import os
 import requests
 import sqlite3
 
-def database_setup(db):
-    path = os.path.dirname(os.path.abspath(__file__))
-    conn = sqlite3.connect(path + '/' + db)
-    cur = conn.cursor()
-    return cur, conn
-
 def create_table(cur, conn):
     cur.execute('CREATE TABLE IF NOT EXISTS "Covid" ("id" INTEGER PRIMARY KEY, "date" TEXT, "week_id" INTEGER, "positive_cases" INTEGER, "weekly_avg" REAL)')
     conn.commit()
@@ -104,10 +98,8 @@ def calculate_week_avg(cur, conn):
 #     count += 1
 
 
-def main():
+def main(cur, conn):
     url = 'https://api.covidtracking.com/v1/us/daily.json'
-
-    cur, conn = database_setup('final.db')
 
     create_table(cur, conn)
 
@@ -119,6 +111,6 @@ def main():
 
     calculate_week_avg(cur, conn)
 
-
-
-main()
+if __name__ == "__main__":
+    main()
+    
