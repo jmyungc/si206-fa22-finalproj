@@ -7,13 +7,17 @@ from datetime import datetime
 import pandas as pd
 
 
-def open_database(db_name):
+def open_database(db):
     path = os.path.dirname(os.path.abspath(__file__))
-    conn = sqlite3.connect(path+'/'+db_name)
+    conn = sqlite3.connect(path+'/'+db)
     cur = conn.cursor()
     return cur, conn
 
-def get_data(rss_url):
+def create_news_table(cur, conn):
+    cur.execute('CREATE TABLE IF NOT EXISTS news (id INTEGER PRIMARY KEY, date TEXT, vaccine TEXT, vaccination TEXT, pfizer TEXT, booster TEXT)')
+    conn.commit()
+
+def get_news_data(rss_url):
 
     xml = get(rss_url)
     parser = Parser(xml=xml.content, limit=500)
@@ -41,7 +45,7 @@ def get_data(rss_url):
 
 def main():
     rss_url = "https://tools.cdc.gov/api/v2/resources/media/132608.rss"
-    get_data(rss_url)
+    get_news_data(rss_url)
 
 if __name__ == "__main__":
     main()
