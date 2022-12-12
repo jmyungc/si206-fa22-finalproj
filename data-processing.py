@@ -25,7 +25,7 @@ def stocks_tables(cur, conn):
         cur.execute('SELECT COUNT (*) FROM Stocks')
         row_count = cur.fetchone()
 
-        if (row_count[0] == 315 or row_count[0] == None):
+        if (row_count[0] == 315):
             print("Stocks table complete")
             break
 
@@ -39,7 +39,7 @@ def covid_table(cur, conn):
         
         row_count = cur.fetchone()
 
-        if (row_count[0] == 416 or row_count[0] == None):
+        if (row_count[0] == 416):
             print("Covid table complete")
             break
         time.sleep(15)
@@ -51,7 +51,7 @@ def news_table(cur,conn):
         cur.execute('SELECT COUNT (*) FROM news')
         row_count = cur.fetchone()
 
-        if (row_count[0] == 729 or row_count[0] == None):
+        if (row_count[0] == 729):
             print("News table complete")
             break
 
