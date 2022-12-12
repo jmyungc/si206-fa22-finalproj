@@ -48,8 +48,8 @@ def covid_table(cur, conn):
 #         time.sleep(35)
 #     return("News table created")
 
-# def join_stocks_tables(cur,conn):
-# Join stocks tables 
+def join_tables(cur,conn):
+    pass
 
 
 # Do math using tables in final.db
@@ -62,7 +62,8 @@ def main():
     covid_table(cur, conn)
     
     stocks_tables(cur, conn)
-   
+
+    join_tables(cur,conn)
 
     # news_table(cur, conn)
 
