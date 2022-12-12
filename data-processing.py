@@ -33,6 +33,13 @@ def stocks_tables(cur, conn):
 #         time.sleep(35)
 #     return("News table created")
 
+# def join_stocks_tables(cur,conn):
+# Join stocks tables 
+
+
+# Do math using tables in final.db
+# Export math to text file
+# Visualizations #
 
 def main():
     cur, conn = create_database('final.db')
