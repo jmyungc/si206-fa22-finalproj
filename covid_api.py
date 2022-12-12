@@ -69,6 +69,30 @@ def insert_data(cur, conn, data):
     
     conn.commit()
 
+def calculate_week_avg(cur, conn):
+    cur.execute('SELECT max(week_id) FROM Covid')
+    max_week = cur.fetchone()[0]
+    cur.execute('SELECT min(week_id) FROM Covid')
+    count = cur.fetchone()[0]
+
+    while count <= max_week:
+        statement = f'SELECT positive_cases FROM COVID WHERE week_id = {count}'
+        cur.execute(statement)
+        week_data = cur.fetchall()
+        total = 0
+        for day in week_data:
+            total += day[0]
+
+        total = round(total / 7, 2)
+
+        insert_statement = f'UPDATE Covid set weekly_avg={total} WHERE week_id={count}'
+
+        cur.execute(insert_statement)
+
+        count += 1
+
+    conn.commit()
+
 
 
 # cur.execute('CREATE TABLE IF NOT EXIST Covid (id integer PRIMARY KEY, date varchar(255), positive_cases integer)')
@@ -92,6 +116,8 @@ def main():
     data = data_cleanup(covid)
 
     insert_data(cur, conn, data)
+
+    calculate_week_avg(cur, conn)
 
 
 
